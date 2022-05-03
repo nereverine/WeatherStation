@@ -67,21 +67,25 @@ export default {
     watch :{
         user (value) {
             if (value !== null && value !== undefined){
-                this.$router.push('/')
+                this.$router.push('/home')
             }
         },
     },
     methods: {
         onLogin() {
-            this.$store.dispatch('login', {
-                email: this.email,
-                password: this.password,
-            })
+      this.$store.dispatch("login", {
+          email: this.email,
+          password: this.password,
+        }).then((response) => {                   
+         // this.$router.push("/home", () => {});
+        })
+        .catch((error) => {          
+          console.log("Invalid Authentication");
+        });
+    },          
         }
-
-
     }
-}
+
 </script>
 
 <style scoped>

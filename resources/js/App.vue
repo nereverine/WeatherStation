@@ -114,11 +114,14 @@ export default {
         menuItens() {
             let menuItens
             if (this.isUserAutenticaded) {
-                return this.$store.getters.links
+                //return this.$store.getters.links
+                menuItens = [
+                    {title: 'Home', icon: 'home', link: '/'},
+                    {title: 'Stations', icon: 'mdi-web-box', link: '/'}
+                ]
             } else {
                 menuItens = [
                     {title: 'Home', icon: 'home', link: '/'},
-                    {title: 'Store', icon: 'mdi-basket', link: '/Store'},
                     {title: 'Login', icon: 'login', link: '/Login'},
                     {title: 'Register', icon: 'face', link: '/Register'},
                 ]

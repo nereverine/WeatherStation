@@ -5381,16 +5381,21 @@ __webpack_require__.r(__webpack_exports__);
       var menuItens;
 
       if (this.isUserAutenticaded) {
-        return this.$store.getters.links;
-      } else {
+        //return this.$store.getters.links
         menuItens = [{
           title: 'Home',
           icon: 'home',
           link: '/'
         }, {
-          title: 'Store',
-          icon: 'mdi-basket',
-          link: '/Store'
+          title: 'Stations',
+          icon: 'mdi-web-box',
+          link: '/'
+        }];
+      } else {
+        menuItens = [{
+          title: 'Home',
+          icon: 'home',
+          link: '/'
         }, {
           title: 'Login',
           icon: 'login',
@@ -5488,15 +5493,18 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     user: function user(value) {
       if (value !== null && value !== undefined) {
-        this.$router.push('/');
+        this.$router.push('/home');
       }
     }
   },
   methods: {
     onLogin: function onLogin() {
-      this.$store.dispatch('login', {
+      this.$store.dispatch("login", {
         email: this.email,
         password: this.password
+      }).then(function (response) {// this.$router.push("/home", () => {});
+      })["catch"](function (error) {
+        console.log("Invalid Authentication");
       });
     }
   }
@@ -5543,7 +5551,14 @@ __webpack_require__.r(__webpack_exports__);
       firstLoad: true
     };
   },
-  computed: {},
+  computed: {
+    isUserAuthenticated: function isUserAuthenticated() {
+      return this.$store.getters.authenticated;
+    },
+    getuser: function getuser() {
+      return this.$store.getters.user;
+    }
+  },
   methods: {},
   mounted: function mounted() {
     var _this = this;
@@ -5599,16 +5614,14 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
  */
 
 
-_store___WEBPACK_IMPORTED_MODULE_2__.store.dispatch('auth').then(function () {
-  new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
-    el: '#app',
-    router: _router___WEBPACK_IMPORTED_MODULE_1__["default"],
-    vuetify: _vuetify___WEBPACK_IMPORTED_MODULE_3__["default"],
-    store: _store___WEBPACK_IMPORTED_MODULE_2__.store,
-    render: function render(h) {
-      return h(_App_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
-    }
-  });
+new vue__WEBPACK_IMPORTED_MODULE_4__["default"]({
+  el: '#app',
+  router: _router___WEBPACK_IMPORTED_MODULE_1__["default"],
+  vuetify: _vuetify___WEBPACK_IMPORTED_MODULE_3__["default"],
+  store: _store___WEBPACK_IMPORTED_MODULE_2__.store,
+  render: function render(h) {
+    return h(_App_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
+  }
 });
 
 /***/ }),
@@ -5723,9 +5736,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       state.authenticated = value;
     },
     setUser: function setUser(state, value) {
-      if (state.user !== value) {
-        state.user = value;
-      }
+      state.user = value;
     },
     setToken: function setToken(state, payload) {
       //Saves token on Vuex
@@ -5741,42 +5752,22 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     login: function login(_ref, payload) {
       var commit = _ref.commit,
           dispatch = _ref.dispatch;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('api/login', {
-        username: payload.email,
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/api/login', {
+        email: payload.email,
         password: payload.password
       }).then(function (response) {
-        console.log(response); // commit('setToken', response.data.access_token)
-      }).then(function () {
-        //dispatch('auth')
-        commit('setLoading', false);
-      })["catch"](function (error) {
-        commit('setLoading', false);
-        console.log(error); // commit('setToken', '')
-
-        commit('setUser', null);
-      });
-    },
-    auth: function auth(_ref2) {
-      var commit = _ref2.commit,
-          dispatch = _ref2.dispatch,
-          getters = _ref2.getters;
-      // const config = {
-      //     headers: {'Authorization': "Bearer " + getters.token}
-      // }
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get('api/user').then(function (response) {
-        console.log(response);
-        commit('setAuthenticated', true); //dispatch('buildLinks', response.data)
-
+        localStorage.setItem('user', JSON.stringify(response.data));
         commit('setUser', response.data);
-      })["catch"](function (response) {
-        console.log(response);
-        commit('setAuthenticated', false);
+        commit('setAuthenticated', true);
+      })["catch"](function (error) {
+        console.log(error);
         commit('setUser', null);
+        commit('setAuthenticated', false);
       });
     },
-    logout: function logout(_ref3) {
-      var commit = _ref3.commit,
-          getters = _ref3.getters;
+    logout: function logout(_ref2) {
+      var commit = _ref2.commit,
+          getters = _ref2.getters;
       commit('setLoading', true); // const config = {
       //     headers: {'Authorization': "Bearer " + getters.token}
       // }
@@ -29515,7 +29506,11 @@ var render = function () {
           !_vm.firstLoad
             ? _c("v-card", { attrs: { outlined: "", loading: _vm.loading } })
             : _vm._e(),
-          _vm._v("\n        aqui vai estar o logging?\n\n    "),
+          _vm._v(
+            "\n        aqui vai estar o logging? " +
+              _vm._s(this.isUserAuthenticated) +
+              "\n\n    "
+          ),
         ],
         1
       ),

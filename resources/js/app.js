@@ -31,7 +31,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- store.dispatch('auth').then(()=> {
+
     new Vue({
         el: '#app',
         router,
@@ -39,4 +39,3 @@ require('./bootstrap');
         store,
         render: h => h(App),
     })
-})

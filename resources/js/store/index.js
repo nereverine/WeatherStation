@@ -23,9 +23,9 @@ export const store = new Vuex.Store({
         },
 
         setUser (state, value) {
-            if (state.user !== value) {              
+                       
                 state.user = value
-            }
+            
         },
         setToken(state, payload) {
             //Saves token on Vuex
@@ -40,44 +40,24 @@ export const store = new Vuex.Store({
          * Auth Functions
          */
           login({commit,dispatch}, payload){
-            axios.post('api/login',{
-                username: payload.email,
+            axios.post('/api/login',{
+                email: payload.email,
                 password: payload.password,
-            },)
-                .then( response => {
-                    console.log(response)
-                   // commit('setToken', response.data.access_token)
-                })
-                .then(()=>{
-                    //dispatch('auth')
-                    commit('setLoading', false)
-                })
-                .catch((error) => {
-                        commit('setLoading', false)
-                        console.log(error)
-                       // commit('setToken', '')
-                        commit('setUser', null)
-                    }
-                )
-        },
+            },) 
+            .then(response => {
+              localStorage.setItem('user', JSON.stringify(response.data));    
+              commit('setUser', response.data)
+              commit('setAuthenticated', true)
+            }) 
+            .catch((error) => {
+                console.log(error)
+                commit('setUser', null)
+                commit('setAuthenticated', false)
+            }
+            )
+      },
 
-        auth({commit,dispatch,getters}){
-            // const config = {
-            //     headers: {'Authorization': "Bearer " + getters.token}
-            // }
-            axios.get('api/user')
-                .then((response) => {
-                    console.log(response)
-                    commit('setAuthenticated', true)
-                    //dispatch('buildLinks', response.data)
-                    commit('setUser', response.data)
-                })
-                .catch((response) => {
-                    console.log(response)
-                    commit('setAuthenticated', false)
-                    commit('setUser', null)
-                })
-        },
+        
         logout({ commit, getters }) {
             commit('setLoading', true)
             // const config = {

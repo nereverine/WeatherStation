@@ -12,7 +12,7 @@
 
                         <v-card outlined v-if="!firstLoad" :loading="loading">  
                         </v-card>
-            aqui vai estar o logging?
+            aqui vai estar o logging? {{this.isUserAuthenticated}}
 
         </v-container>
     </v-sheet>
@@ -28,6 +28,12 @@ export default {
         }
     },
     computed: {
+        isUserAuthenticated(){
+            return this.$store.getters.authenticated
+        },
+        getuser(){
+            return this.$store.getters.user
+        }
         
     },
     methods:{
