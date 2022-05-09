@@ -117,7 +117,7 @@ export default {
                 //return this.$store.getters.links
                 menuItens = [
                     {title: 'Home', icon: 'home', link: '/'},
-                    {title: 'Stations', icon: 'mdi-web-box', link: '/'}
+                    {title: 'Stations', icon: 'mdi-web-box', link: '/Station'}
                 ]
             } else {
                 menuItens = [

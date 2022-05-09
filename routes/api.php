@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\Auth\ApiAuthController;
+use App\Http\Controllers\Api\Stations\ApiStationsController;
+use App\Http\Controllers\Api\Sensors\ApiSensorsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +24,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', [ApiAuthController::class, 'login']);
 Route::post('logout', [ApiAuthController::class, 'logout']);
+
+//Stations
+Route::get('stationsByUserId',[ApiStationsController::class,'stationsByUserId']);
+
+
+//Sensors
+Route::get('sensorsByStation',[ApiSensorsController::class, 'sensorsByStation']);
+Route::get('sensorById',[ApiSensorsController::class,'sensorById']);

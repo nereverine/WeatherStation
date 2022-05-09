@@ -12,8 +12,9 @@
 
                         <v-card outlined v-if="!firstLoad" :loading="loading">  
                         </v-card>
-            aqui vai estar o logging? {{this.isUserAuthenticated}}
-
+            <div v-if="isUserAuthenticated">
+                Welcome {{this.$store.getters.user.name}}
+            </div>
         </v-container>
     </v-sheet>
 </template>
@@ -25,14 +26,15 @@ export default {
             title: 'Welcome to WeatherStation@AnytimeAnywhere',
             loading: true,
             firstLoad: true,
+            user: {},
         }
     },
     computed: {
         isUserAuthenticated(){
             return this.$store.getters.authenticated
         },
-        getuser(){
-            return this.$store.getters.user
+        getUser(){
+            this.user = this.$store.getters.user
         }
         
     },
@@ -43,7 +45,7 @@ export default {
     mounted(){
         setTimeout(()=>{
             this.loading = false;
-            this.firstLoad = false;
+            this.firstLoad = false;       
         },3000)
     }
 }
