@@ -7,6 +7,7 @@ import Login from "../components/Auth/Login"
 import Register from "../components/Auth/Register"
 import Home from "../components/Home"
 import Station from "../components/Stations/Station"
+import Data from "../components/Data/Data"
 
 export default new Router ({
    // mode: "history",
@@ -32,7 +33,15 @@ export default new Router ({
             path: '/Station',
             name: 'Station',
             component: Station,
-        }
+        },
+
+        {
+            path: '/Data',
+            name: 'Data',
+            component: Data,
+        },
+
+        
 
     ]
 })

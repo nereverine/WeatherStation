@@ -25,7 +25,7 @@
                   </v-icon>
                 Sensors
               </v-btn>
-              <v-btn >
+              <v-btn @click="setSelectedStationId(station.id)">
                    <v-icon>
                      mdi-view-list
                   </v-icon>
@@ -66,7 +66,6 @@
 
 </v-dialog>
 
-
     </v-container>
 
 
@@ -83,8 +82,11 @@ export default {
             selectedStationSensorsId: [],
             selectedStationSensors: [],
             dialog: false,
+            stationId: 0,
         }
     },
+
+   
 
     created(){
         const config = {
@@ -156,7 +158,18 @@ export default {
                      this.selectedStationSensors.push(element)
                  })
              })
-        }
+        },
+
+
+        setSelectedStationId(id){
+            
+            this.$store.dispatch('selectedStationId', {
+                id: id,
+            })
+            this.$router.push('/Data')
+        },
+
+        
 
     }
 

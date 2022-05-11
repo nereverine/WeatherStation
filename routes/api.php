@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\ApiAuthController;
 use App\Http\Controllers\Api\Stations\ApiStationsController;
 use App\Http\Controllers\Api\Sensors\ApiSensorsController;
+use App\Http\Controllers\Api\Firebase\ApiFirebaseController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,7 +29,12 @@ Route::post('logout', [ApiAuthController::class, 'logout']);
 //Stations
 Route::get('stationsByUserId',[ApiStationsController::class,'stationsByUserId']);
 
-
 //Sensors
 Route::get('sensorsByStation',[ApiSensorsController::class, 'sensorsByStation']);
 Route::get('sensorById',[ApiSensorsController::class,'sensorById']);
+
+
+
+//Firebase
+
+Route::get('firebaseList',[ApiFirebaseController::class, 'index']);

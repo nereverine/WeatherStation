@@ -11,6 +11,8 @@ export const store = new Vuex.Store({
         user:null,
         token: localStorage.getItem('user-token') || '',
         loading: false,
+
+        selectedStationId:0,
     },
 
 
@@ -33,6 +35,9 @@ export const store = new Vuex.Store({
             //Saves token on localStorage
             localStorage.setItem('user-token', payload)
         },
+        setSelectedStationId(state,value){
+            state.selectedStationId = value
+        }
     },
 
     actions:{
@@ -78,6 +83,10 @@ export const store = new Vuex.Store({
                     }
                 )
         },
+
+        selectedStationId({commit}, payload){
+            commit('setSelectedStationId',payload.id)
+        },
     },
 
     getters:{
@@ -96,6 +105,9 @@ export const store = new Vuex.Store({
 
         loading(state){
             return state.loading
+        },
+        selectedStationId(state){
+            return state.selectedStationId
         },
     },
 
