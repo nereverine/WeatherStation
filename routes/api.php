@@ -37,4 +37,5 @@ Route::get('sensorById',[ApiSensorsController::class,'sensorById']);
 
 //Firebase
 
-Route::get('firebaseList',[ApiFirebaseController::class, 'index']);
+Route::get('getYears',[ApiFirebaseController::class, 'getYears']);
+Route::get('todaysData',[ApiFireBaseController::class, 'todaysData']);

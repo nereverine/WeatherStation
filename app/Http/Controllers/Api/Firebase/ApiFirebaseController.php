@@ -26,11 +26,20 @@ class ApiFirebaseController extends Controller
         return $firebase->createDatabase();
     }
 
-    public function index() 
-{
-    $path = "/2022/5";
+    public function getYears() 
+    {
+    $path = "/";
     return response()->json($this->database->getReference($path)->getValue());
-}
+    }
+
+    public function todaysData(){
+        //$year = request('year');
+        //$month = request('month');
+        //$day = request('day');
+        $path = request('path');
+        return response()->json($this->database->getReference($path)->getValue());
+        
+    }
 
 
 }
