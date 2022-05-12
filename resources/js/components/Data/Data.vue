@@ -4,39 +4,152 @@
       <v-row align="center" justify="center">
         <h1 class="text-center display-3">Sensor Data</h1>
       </v-row>
-
-      <v-skeleton-loader
-        class="mx-auto"
-        type="table"
-        v-if="firstLoad"
-        :loading="loading"
-      ></v-skeleton-loader>
-
+<v-row class="mb-10">
       <v-card>
           <v-card-title class="indigo white--text text-h5">
-              Todays Measurements
+              Today's Measurements
           </v-card-title>
           <v-row class="pa-4" justify="space-between">
               <v-col>
                   <vue-svg-gauge
   :start-angle="-110"
   :end-angle="110"
-  :value="95"
+  :value=this.today.humidity
   :separator-step="10"
   :min="0"
   :max="100"
   :gauge-color="[{ offset: 0, color: '#347AB0'}, { offset: 100, color: '#8CDFAD'}]"
   :scale-interval="0.1"
 >
+<div class="inner-text-above inner-text-above--4">
+        {{this.today.humidity}}%
+      </div>
 <div class="inner-text inner-text--3">
         <span>Humidity</span>
       </div>
 </vue-svg-gauge>
 </v-col>
-              <v-col>2</v-col>
-              <v-col>3</v-col>
+
+              <v-col>
+               <vue-svg-gauge
+  :start-angle="-110"
+  :end-angle="110"
+  :value=this.today.luminosity
+  :separator-step="100"
+  :min="0"
+  :max="1000"
+  :gauge-color="[{ offset: 0, color: 'yellow'}, { offset: 50, color: 'black'}]"
+  :scale-interval="0.1"
+>
+<div class="inner-text--lum-above inner-text-lum-above--4">
+        {{this.today.luminosity}}
+      </div>
+<div class="inner-text-lum inner-text-lum--3">
+        <span>Luminosity</span>
+      </div>
+</vue-svg-gauge>
+              </v-col>
+
+              <v-col>
+                 <vue-svg-gauge
+  :start-angle="-110"
+  :end-angle="110"
+  :value=this.today.temperature
+  :separator-step="0"
+  :min="0"
+  :max="40"
+  :gauge-color="[{ offset: 20, color: '#005dfc'}, { offset: 20, color: '#fc0000'}]"
+  :scale-interval="0.1"
+>
+<div class="inner-text--temp-above inner-text-temp-above--4">
+        {{this.today.temperature}}
+      </div>
+<div class="inner-text-temp inner-text-temp--3">
+        <span>Temperature</span>
+      </div>
+</vue-svg-gauge>
+              </v-col>
           </v-row>
       </v-card>
+</v-row>
+<v-row class="mb-10">
+      <v-date-picker width="100%" elevation="15" v-model="datePicker" @click:date="showDate"></v-date-picker>
+</v-row>
+
+<v-dialog v-model="dialog" max-width="60%">
+<v-card>
+<v-card-title>Data for {{this.selectedDate}}</v-card-title>
+<v-card-text>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-card>
+          <v-card-title>Humidade</v-card-title>
+
+          <v-card-text>
+            <v-row>
+            <v-col cols="6" align="center">
+          <v-img
+            src="https://cdn-icons-png.flaticon.com/512/727/727790.png"
+            width="92"
+          ></v-img>
+        </v-col>
+        <v-col>
+          <div class="text-h5">
+            {{this.selectedDateData.humidity}}%
+          </div>
+        </v-col>
+            </v-row>
+          </v-card-text>
+
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card>
+          <v-card-title>Luminosidade</v-card-title>
+           <v-card-text>
+            <v-row>
+            <v-col cols="6" align="center">
+          <v-img
+            src="https://cdn-icons-png.flaticon.com/512/73/73570.png"
+            width="92"
+          ></v-img>
+        </v-col>
+        <v-col>
+          <div class="text-h5">
+            {{this.selectedDateData.luminosity}}
+          </div>
+        </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col>
+        <v-card>
+          <v-card-title>Temperature</v-card-title>
+          <v-card-text>
+            <v-row>
+            <v-col cols="6" align="center">
+          <v-img
+            src="https://cdn-icons-png.flaticon.com/512/1843/1843544.png"
+            width="92"
+          ></v-img>
+        </v-col>
+        <v-col>
+          <div class="text-h6">
+            {{this.selectedDateData.temperature}}ºC
+          </div>
+        </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</v-card-text>
+</v-card>
+</v-dialog>
+
     </v-container>
   </v-sheet>
 </template>
@@ -53,18 +166,12 @@ export default {
       loading: true,
       data: {},
       years: [],
+      today: {},
 
-      items: [
-        {
-          id: 1,
-          name: "Years:",
-          children: [
-            { id: 2, name: "as: as" },
-            { id: 3, name: "Chrome : app" },
-            { id: 4, name: "Webstorm : app" },
-          ],
-        },
-      ],
+      datePicker: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      selectedDate: '',
+      selectedDateData: {},
+      dialog: false,
     };
   },
 
@@ -96,7 +203,7 @@ export default {
         },
     };
     axios.get("/api/todaysData", config).then((r) => {
-      console.log(r.data);
+      this.today = r.data
     });
   },
 
@@ -104,7 +211,35 @@ export default {
 
   watch: {},
 
-  methods: {},
+  methods: {
+    showDate(datePicker){
+      var splitdatePicker = datePicker.split("-")
+      var year = splitdatePicker[0]
+      var month = splitdatePicker[1]
+      var day = splitdatePicker[2]
+      if(month.substring(0,1) == 0){
+        month = month.slice(1)
+      }
+      if(day.substr(0,1) == 0){
+        day = day.slice(1)
+      }
+
+    this.selectedDate = '/'+year+'/'+month+'/'+day
+    const config = {
+        params: {
+            path: this.selectedDate
+        },
+    };
+    axios.get("/api/dataByDate", config).then((r) => {
+      this.selectedDateData = r.data
+      if(!Object.keys(this.selectedDateData).length ==0){
+      this.dialog = true
+    }
+    });
+    
+    
+    }
+  },
 };
 </script>
 
@@ -123,11 +258,22 @@ export default {
     }
   }
 
-  .inner-text {
-    &--1, &--3 {
+  .inner-text-above {
+    &--4{
       display: flex;
       justify-content: center;
-      margin-top: 85px;
+      margin-top: 70px;
+      font-size: 20px;
+      color: blue;
+      font-weight: bold;
+    }
+  }
+
+  .inner-text {
+    &--1, &--3, &--4 {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
       font-size: 20px;
       color: #215dde;
       font-weight: bold;
@@ -138,7 +284,7 @@ export default {
     }
 
     &--3 {
-      margin-top: 100px;
+      margin-top: 5px;
     }
 
     &--2 {
@@ -153,5 +299,102 @@ export default {
         max-width: 90px;
       }
     }
+    &--4 {
+      margin-top: 20px;
+    }
   }
+
+
+  .inner-text-lum-above {
+    &--4{
+      display: flex;
+      justify-content: center;
+      margin-top: 70px;
+      font-size: 20px;
+      color: #ffd500;
+      font-weight: bold;
+    }
+  }
+
+  .inner-text-lum {
+    &--1, &--3, &--4 {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #f7c12a;
+      font-weight: bold;
+
+      span {
+        max-width: 100px;
+      }
+    }
+
+    &--3 {
+      margin-top: 5px;
+    }
+
+    &--2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #de3a21;
+      font-weight: bold;
+
+      span {
+        max-width: 90px;
+      }
+    }
+    &--4 {
+      margin-top: 20px;
+    }
+  }
+
+   .inner-text-temp-above {
+    &--4{
+      display: flex;
+      justify-content: center;
+      margin-top: 70px;
+      font-size: 20px;
+      color: #fc2a00;
+      font-weight: bold;
+    }
+  }
+
+  .inner-text-temp {
+    &--1, &--3, &--4 {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #e84220;
+      font-weight: bold;
+
+      span {
+        max-width: 100px;
+      }
+    }
+
+    &--3 {
+      margin-top: 5px;
+    }
+
+    &--2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #de3a21;
+      font-weight: bold;
+
+      span {
+        max-width: 90px;
+      }
+    }
+    &--4 {
+      margin-top: 20px;
+    }
+  }
+
 </style>

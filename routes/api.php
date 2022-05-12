@@ -39,3 +39,4 @@ Route::get('sensorById',[ApiSensorsController::class,'sensorById']);
 
 Route::get('getYears',[ApiFirebaseController::class, 'getYears']);
 Route::get('todaysData',[ApiFireBaseController::class, 'todaysData']);
+Route::get('dataByDate',[ApiFireBaseController::class, 'dataByDate']);

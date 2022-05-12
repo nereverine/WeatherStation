@@ -41,5 +41,10 @@ class ApiFirebaseController extends Controller
         
     }
 
+    public function dataByDate(){
+        $path = request('path');
+        return response()->json($this->database->getReference($path)->getValue());
+    }
+
 
 }
