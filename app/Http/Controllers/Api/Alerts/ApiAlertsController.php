@@ -18,4 +18,19 @@ class ApiAlertsController extends Controller
         ->where('userId','=', $userId)
         ->get();
     }
+
+    public function createAlert(){
+        $userId = request('userId');
+        $condition = request('condition');
+        echo $userId;
+        echo $condition;
+
+        return DB::table('alerts')
+        ->insert([
+            'userId' => $userId,
+            'stationId' => 1,
+            'condition' => $condition,
+        ]);
+
+    }
 }

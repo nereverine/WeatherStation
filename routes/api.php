@@ -8,6 +8,13 @@ use App\Http\Controllers\Api\Stations\ApiStationsController;
 use App\Http\Controllers\Api\Sensors\ApiSensorsController;
 use App\Http\Controllers\Api\Firebase\ApiFirebaseController;
 use App\Http\Controllers\Api\Alerts\ApiAlertsController;
+
+use App\Http\Controllers\Api\Notifications\ApiNotificationsController;
+
+use App\Mail\HighTemperatureNotification;
+use App\Mail\HighHumidityNotification;
+use App\Mail\LowLuminosityNotification;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -44,3 +51,8 @@ Route::get('dataByDate',[ApiFireBaseController::class, 'dataByDate']);
 
 //Alerts
 Route::get('getAlerts', [ApiAlertsController::class, 'getAlerts']);
+Route::post('createAlert', [ApiAlertsController::class, 'createAlert']);
+
+Route::post('sendHighTempNotif', [ApiNotificationsController::class, 'highTemperatureNotification']);
+Route::post('sendHighHumiNotif', [ApiNotificationsController::class, 'highHumidityNotification']);
+Route::post('sendLowLumNotif', [ApiNotificationsController::class, 'lowLuminosityNotification']);

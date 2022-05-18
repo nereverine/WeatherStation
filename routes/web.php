@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Mail\HighTemperatureNotification;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,3 +23,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/send-mail', function () {
+
+    Mail::to('lucas_stormborn@hotmail.com')->send(new HighTemperatureNotification());
+
+    return 'A message has been sent to Mailtrap!';
+
+});
