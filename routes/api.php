@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\Auth\ApiAuthController;
 use App\Http\Controllers\Api\Stations\ApiStationsController;
 use App\Http\Controllers\Api\Sensors\ApiSensorsController;
 use App\Http\Controllers\Api\Firebase\ApiFirebaseController;
+use App\Http\Controllers\Api\Alerts\ApiAlertsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,3 +41,6 @@ Route::get('sensorById',[ApiSensorsController::class,'sensorById']);
 Route::get('getYears',[ApiFirebaseController::class, 'getYears']);
 Route::get('todaysData',[ApiFireBaseController::class, 'todaysData']);
 Route::get('dataByDate',[ApiFireBaseController::class, 'dataByDate']);
+
+//Alerts
+Route::get('getAlerts', [ApiAlertsController::class, 'getAlerts']);

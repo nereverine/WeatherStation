@@ -5,6 +5,9 @@
                 justify="center"
             >
                 <h1 class="text-center display-3">Stations</h1>
+                 <v-row v-if="isStationsEmpty" align="center" justify="center" class="mt-5">
+            <h3 class="text-center">User has no stations</h3>
+        </v-row>
             
     <v-col md="3" offset-lg="1">
         <v-row>
@@ -83,6 +86,7 @@ export default {
             selectedStationSensors: [],
             dialog: false,
             stationId: 0,
+            isStationsEmpty: true
         }
     },
 
@@ -108,6 +112,9 @@ export default {
                         break;        
                 }
                 this.stations.push(element);
+                if(this.stations !== ''){
+                    this.isStationsEmpty = false
+                }
             });
         });
     },
