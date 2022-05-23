@@ -172,6 +172,9 @@ export default {
       selectedDate: '',
       selectedDateData: {},
       dialog: false,
+      hasTempAlert: false,
+      hasHumAlert: false,
+      hasLumAlert: false,
     };
   },
 
@@ -205,6 +208,47 @@ export default {
     axios.get("/api/todaysData", config).then((r) => {
       this.today = r.data
     });
+
+
+
+  const config2 = {
+      params: {
+        userId: this.$store.getters.user.id,
+      },
+    };
+    axios.get("api/getAlerts", config2).then((response) => {
+      response.data.forEach((element) => {
+        switch(element.condition){
+          case 'temperature>22':
+            this.hasTempAlert = true
+            break
+
+          case 'humidity>90':
+            this.hasHumAlert = true
+            break
+
+          case 'luminosity>500':
+            this.hasLumAlert = true
+            break  
+        }
+      });
+      
+
+        if(this.hasTempAlert==true && this.today.temperature > 22){
+          this.sendTempNotif()
+        }
+        if(this.hasHumAlert==true && this.today.humidity > 90){
+          this.sendHumNotif()
+        }
+        if(this.hasLumAlert==true && this.today.luminosity > 500){
+          this.sendLumNotif()
+        }
+
+    });
+
+
+
+
   },
 
   computed: {},
@@ -238,7 +282,29 @@ export default {
     });
     
     
+    },
+
+    sendTempNotif(){
+      axios.post('api/sendHighTempNotif')
+      .then((response) => {
+        console.log(response.data)
+      })
+    },
+
+    sendHumNotif(){
+      axios.post('api/sendHighHumiNotif')
+      .then((response) => {
+        console.log(response.data)
+      })
+    },
+
+    sendLumNotif(){
+      axios.post('api/sendLowLumNotif')
+      .then((response) => {
+        console.log(response.data)
+      })
     }
+
   },
 };
 </script>

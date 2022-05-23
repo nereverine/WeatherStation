@@ -91,6 +91,7 @@ export default {
         }
       });
     });
+
   },
 
   methods:{
@@ -111,7 +112,7 @@ export default {
     },
 
     teste(){
-      axios.post('api/sendHighTempNotif')
+      axios.post('api/sendLowLumNotif')
       .then((response) => {
         console.log(response.data)
       })

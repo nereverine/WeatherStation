@@ -8,11 +8,12 @@
  import router from './router/'
  import {store} from './store/'
  import vuetify from './vuetify/'
+ import toasted from 'vue-toasted'
 
 require('./bootstrap');
 
 
-
+Vue.use(toasted);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -37,5 +38,6 @@ require('./bootstrap');
         router,
         vuetify,
         store,
+        
         render: h => h(App),
     })
