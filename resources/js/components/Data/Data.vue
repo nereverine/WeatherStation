@@ -84,7 +84,7 @@
     <v-row>
       <v-col>
         <v-card>
-          <v-card-title>Humidade</v-card-title>
+          <v-card-title>Humidity</v-card-title>
 
           <v-card-text>
             <v-row>
@@ -106,7 +106,7 @@
       </v-col>
       <v-col>
         <v-card>
-          <v-card-title>Luminosidade</v-card-title>
+          <v-card-title>Luminosity</v-card-title>
            <v-card-text>
             <v-row>
             <v-col cols="6" align="center">
@@ -234,15 +234,15 @@ export default {
       });
       
 
-        if(this.hasTempAlert==true && this.today.temperature > 22){
-          this.sendTempNotif()
-        }
-        if(this.hasHumAlert==true && this.today.humidity > 90){
-          this.sendHumNotif()
-        }
-        if(this.hasLumAlert==true && this.today.luminosity > 500){
-          this.sendLumNotif()
-        }
+        // if(this.hasTempAlert==true && this.today.temperature > 22){
+        //   this.sendTempNotif()
+        // }
+        // if(this.hasHumAlert==true && this.today.humidity > 90){
+        //   this.sendHumNotif()
+        // }
+        // if(this.hasLumAlert==true && this.today.luminosity > 500){
+        //   this.sendLumNotif()
+        // }
 
     });
 
@@ -378,6 +378,17 @@ export default {
       margin-top: 70px;
       font-size: 20px;
       color: #ffd500;
+      font-weight: bold;
+    }
+  }
+
+  .inner-text-lum-below {
+    &--4{
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      font-size: 10px;
+      color: #c6fc03;
       font-weight: bold;
     }
   }

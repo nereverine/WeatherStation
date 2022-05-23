@@ -7,15 +7,19 @@
             >
                 <h1 class="text-center display-3">{{title}}</h1>
             </v-row>
-
-                    <v-skeleton-loader class="mx-auto" type="card" v-if="firstLoad" :loading="loading"></v-skeleton-loader>
-
-                        <v-card outlined v-if="!firstLoad" :loading="loading">  
-                        </v-card>
             <div v-if="isUserAuthenticated">
-                Welcome {{this.$store.getters.user.name}}
+
+                <v-row align="center" justify="center">
+               <h3 class="text-center"> Welcome {{this.$store.getters.user.name}}</h3>
+                </v-row>
             </div>
+            <v-img
+  max-height="100%"
+  max-width="100%"
+  src="storage/background.jpg"
+></v-img>
         </v-container>
+        
     </v-sheet>
 </template>
 
@@ -24,8 +28,7 @@ export default {
     data() {
         return {
             title: 'Welcome to WeatherStation@AnytimeAnywhere',
-            loading: true,
-            firstLoad: true,
+           
             user: {},
         }
     },
@@ -44,7 +47,7 @@ export default {
     },
     mounted(){
         setTimeout(()=>{
-            this.loading = false;     
+           // this.loading = false;     
         },3000)
     }
 }

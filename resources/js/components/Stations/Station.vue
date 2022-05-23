@@ -42,12 +42,13 @@
 </v-row>
 
 
-<v-dialog v-model="dialog" max-width="100%">
+<v-dialog v-model="dialog">
     <v-card>
-        <v-card-title class="text-center">
+        <v-card-title>
             Sensors
         </v-card-title>
-        <v-row v-for="item in selectedStationSensors">
+        <v-card-text>
+        <v-card v-for="item in selectedStationSensors">
             <v-col>
                 <v-text-field v-model="item.name"
                 label="Sensor Name"
@@ -60,10 +61,9 @@
                 </v-text-field>
                  <img :src="'storage/sensors/'+ item.photo_url + '.png'"  style="width: 100px; height: 100px" />
             </v-col>
-            <v-spacer></v-spacer>
-        </v-row>
-
-
+        </v-card>
+<v-spacer></v-spacer>
+        </v-card-text>
 
     </v-card>
 
