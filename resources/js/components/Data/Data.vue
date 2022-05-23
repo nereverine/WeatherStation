@@ -234,15 +234,15 @@ export default {
       });
       
 
-        // if(this.hasTempAlert==true && this.today.temperature > 22){
-        //   this.sendTempNotif()
-        // }
-        // if(this.hasHumAlert==true && this.today.humidity > 90){
-        //   this.sendHumNotif()
-        // }
-        // if(this.hasLumAlert==true && this.today.luminosity > 500){
-        //   this.sendLumNotif()
-        // }
+        if(this.hasTempAlert==true && this.today.temperature > 22){
+          this.sendTempNotif()
+        }
+        if(this.hasHumAlert==true && this.today.humidity > 90){
+          this.sendHumNotif()
+        }
+        if(this.hasLumAlert==true && this.today.luminosity > 500){
+          this.sendLumNotif()
+        }
 
     });
 
@@ -287,6 +287,11 @@ export default {
     sendTempNotif(){
       axios.post('api/sendHighTempNotif')
       .then((response) => {
+        this.$toasted.show("High Temperature Notification sent!", {
+          color: "orange",
+          duration: 2000,
+          position: "top-center",
+        })
         console.log(response.data)
       })
     },
@@ -294,6 +299,11 @@ export default {
     sendHumNotif(){
       axios.post('api/sendHighHumiNotif')
       .then((response) => {
+        this.$toasted.show("High Humidity Notification sent!", {
+          color: "orange",
+          duration: 2000,
+          position: "top-center",
+        })
         console.log(response.data)
       })
     },
@@ -301,6 +311,11 @@ export default {
     sendLumNotif(){
       axios.post('api/sendLowLumNotif')
       .then((response) => {
+        this.$toasted.show("Low Luminosity Notification sent!", {
+          color: "orange",
+          duration: 2000,
+          position: "top-center",
+        })
         console.log(response.data)
       })
     }

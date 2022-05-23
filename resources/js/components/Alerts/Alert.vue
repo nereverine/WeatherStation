@@ -8,7 +8,7 @@
               <v-btn color="green" @click="addAlertOpen()">
                 <v-icon>mdi-plus-thick</v-icon>
                   Add</v-btn>
-                  <v-btn color="red">
+                  <v-btn color="red" @click="removeAlertOpen()">
                 <v-icon>mdi-close-thick</v-icon>
                   Remove</v-btn>
             </v-col>
@@ -49,14 +49,32 @@
           <v-col align="right">
          <v-btn align="right" color="green" @click="addAlert()">Add alert</v-btn>
           </v-col>
-
-          <v-col align="right">
-         <v-btn align="right" color="blue" @click="teste()">TESTE</v-btn>
-          </v-col>
         </v-row>
   </v-card-text>
  
 </v-card>
+</v-dialog>
+
+<v-dialog v-model="dialogRemove" max-width="30%">
+  <v-card>
+    <v-card-title>Select an alert to remove
+    </v-card-title>
+    <v-card-text>
+      <v-radio-group v-model="radioGroup">
+      <v-radio
+        v-for="alert in this.alerts"
+        :key="alert.id"
+        :label="alert.condition"
+        :value="alert.id"
+      ></v-radio>
+    </v-radio-group>
+    <v-row>
+          <v-col align="right">
+         <v-btn align="right" color="red" @click="removeAlert()">Remove alert</v-btn>
+          </v-col>
+        </v-row>
+    </v-card-text>
+  </v-card>
 </v-dialog>
 
   </v-sheet>
@@ -68,12 +86,12 @@ export default {
     return {
       alerts: [],
       isAlertsEmpty: true,
-      hasHumidityAlert: false,
-      hasTemperatureAlert: false,
-      hasLuminosityAlert: false,
       dialog: false,
       items: ['temperature>22', 'humidity>90', 'luminosity>500'],
       selectedAddAlert: '',
+      dialogRemove: false,
+
+      radioGroup: 1,
     };
   },
 
@@ -100,6 +118,10 @@ export default {
       this.dialog = true
     },
 
+    removeAlertOpen(){
+      this.dialogRemove =true
+    },
+
     addAlert(){
        
         axios.post('api/createAlert', {
@@ -111,12 +133,19 @@ export default {
         });
     },
 
-    teste(){
-      axios.post('api/sendLowLumNotif')
-      .then((response) => {
-        console.log(response.data)
-      })
-    }
+    removeAlert(){
+        axios.delete('api/deleteAlert', {
+          id: this.radioGroup
+        })
+        .then((response)=> {
+          console.log(response)
+          this.$toasted.show("Alert deleted", {
+          color: "green",
+          duration: 2000,
+          position: "top-center",
+        })
+        });
+    },
 
   },
 };

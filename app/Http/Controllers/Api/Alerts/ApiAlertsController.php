@@ -33,4 +33,9 @@ class ApiAlertsController extends Controller
         ]);
 
     }
+
+    public function deleteAlert(){
+        $id = request('id');
+        return DB::table('alerts')->where('id', '=', $id)->delete();
+    }
 }
