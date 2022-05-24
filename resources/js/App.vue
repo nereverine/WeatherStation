@@ -23,7 +23,7 @@
 
             <v-spacer></v-spacer>
 
-            
+
 
             <div class="mx-3"></div>
 
@@ -42,7 +42,7 @@
                     >
                         <v-avatar
                         >
-                            <v-img :src="'storage/fotos/'+ user.photo_url"/>
+                            <img :src="'storage/images/'+ user.name + '.png'"/>
                         </v-avatar>
                     </v-btn>
                 </template>
@@ -51,7 +51,7 @@
                         <div class="mx-auto text-center">
                             <v-avatar
                             >
-                                <v-img :src="'storage/fotos/'+ user.photo_url"/>
+                                <img :src="'storage/images/'+ user.name + '.png'"/>
                             </v-avatar>
                             <h4>{{ user.name }}</h4>
                             <p class="caption mt-1">
@@ -97,10 +97,17 @@
 <script>
 
 export default {
-    
+
     data: () => ({
 
     }),
+    /*
+    methods: {
+        getProfilePic() {
+            return 'storage/images/'+this.$store.getters.user.name+'.png';
+        }
+    },
+    */
     computed: {
         isUserAutenticaded() {
             return this.$store.getters.authenticated

@@ -19,7 +19,7 @@
   src="storage/background.jpg"
 ></v-img>
         </v-container>
-        
+
     </v-sheet>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     data() {
         return {
             title: 'Welcome to WeatherStation@AnytimeAnywhere',
-           
+
             user: {},
         }
     },
@@ -39,7 +39,7 @@ export default {
         getUser(){
             this.user = this.$store.getters.user
         }
-        
+
     },
     methods:{
 
@@ -47,7 +47,7 @@ export default {
     },
     mounted(){
         setTimeout(()=>{
-           // this.loading = false;     
+           // this.loading = false;
         },3000)
     }
 }

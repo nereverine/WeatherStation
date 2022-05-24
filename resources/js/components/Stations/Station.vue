@@ -8,7 +8,7 @@
                  <v-row v-if="isStationsEmpty" align="center" justify="center" class="mt-5">
             <h3 class="text-center">User has no stations</h3>
         </v-row>
-            
+
     <v-col md="3" offset-lg="1">
         <v-row>
             <v-col v-for="station in stations" :key="station.id">
@@ -90,7 +90,7 @@ export default {
         }
     },
 
-   
+
 
     created(){
         const config = {
@@ -109,7 +109,7 @@ export default {
                         element.status = "Active";
                         break;
                     default:
-                        break;        
+                        break;
                 }
                 this.stations.push(element);
                 if(this.stations !== ''){
@@ -133,7 +133,7 @@ export default {
             this.selectedStationSensorsId = []
             this.selectedStationSensors = []
             this.dialog=true
-            
+
             const config = {
                 params: {
                     id: station.id,
@@ -169,14 +169,14 @@ export default {
 
 
         setSelectedStationId(id){
-            
+
             this.$store.dispatch('selectedStationId', {
                 id: id,
             })
             this.$router.push('/Data')
         },
 
-        
+
 
     }
 
