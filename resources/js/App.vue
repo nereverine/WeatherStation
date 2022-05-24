@@ -67,13 +67,14 @@
                                 Edit Account
                             </v-btn>
                             <v-divider class="my-3"></v-divider>
-                            <v-btn
-                                depressed
-                                rounded
-                                text
-                                to="/Logout"
-                            >
-                                Logout
+                            <v-btn  type="submit"
+                                    @click="logout"
+                                    active-class="active"
+
+                                    depressed
+                                    rounded
+                                    text>Logout
+
                             </v-btn>
                         </div>
                     </v-list-item-content>
@@ -95,19 +96,21 @@
 </template>
 
 <script>
+import { cache } from 'browserslist';
+
 
 export default {
 
     data: () => ({
 
     }),
-    /*
+
     methods: {
-        getProfilePic() {
-            return 'storage/images/'+this.$store.getters.user.name+'.png';
+        logout: function() {
+            this.$store.dispatch("logout");
+            this.$router.push({name:'Login'});
         }
     },
-    */
     computed: {
         isUserAutenticaded() {
             return this.$store.getters.authenticated
