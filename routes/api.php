@@ -52,7 +52,7 @@ Route::get('dataByDate',[ApiFireBaseController::class, 'dataByDate']);
 //Alerts
 Route::get('getAlerts', [ApiAlertsController::class, 'getAlerts']);
 Route::post('createAlert', [ApiAlertsController::class, 'createAlert']);
-Route::delete('deleteAlert', [ApiAlertsController::class, 'deleteAlert']);
+Route::delete('deleteAlert/{alert}', [ApiAlertsController::class, 'deleteAlert']);
 
 Route::post('sendHighTempNotif', [ApiNotificationsController::class, 'highTemperatureNotification']);
 Route::post('sendHighHumiNotif', [ApiNotificationsController::class, 'highHumidityNotification']);

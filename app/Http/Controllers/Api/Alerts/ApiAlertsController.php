@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Alerts;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Alert;
 
 class ApiAlertsController extends Controller
 
@@ -36,6 +37,7 @@ class ApiAlertsController extends Controller
 
     public function deleteAlert(){
         $id = request('id');
-        return DB::table('alerts')->where('id', '=', $id)->delete();
+        $alert = Alert::where('id', $id)->get();
+        $alert->each->delete();
     }
 }

@@ -134,11 +134,12 @@ export default {
     },
 
     removeAlert(){
-        axios.delete('api/deleteAlert', {
-          id: this.radioGroup
+        axios.delete('api/deleteAlert/' + this.radioGroup, {
+          params: {
+            id: this.radioGroup,
+          },
         })
         .then((response)=> {
-          console.log(response)
           this.$toasted.show("Alert deleted", {
           color: "green",
           duration: 2000,
