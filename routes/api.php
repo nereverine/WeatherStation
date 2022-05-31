@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\Sensors\ApiSensorsController;
 use App\Http\Controllers\Api\Firebase\ApiFirebaseController;
 use App\Http\Controllers\Api\Alerts\ApiAlertsController;
 
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\Api\Notifications\ApiNotificationsController;
 
 use App\Mail\HighTemperatureNotification;
@@ -33,6 +35,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', [ApiAuthController::class, 'login']);
 Route::post('logout', [ApiAuthController::class, 'logout']);
+Route::post('updateUserWithPass/{user}', [UserController::class, 'updateUserWithPass']);
+Route::post('updateUser/{user}', [UserController::class, 'updateUser']);
 
 //Stations
 Route::get('stationsByUserId',[ApiStationsController::class,'stationsByUserId']);

@@ -9,6 +9,7 @@ import Home from "../components/Home"
 import Station from "../components/Stations/Station"
 import Data from "../components/Data/Data"
 import Alert from "../components/Alerts/Alert"
+import Profile from "../components/User/Profile"
 
 export default new Router ({
    // mode: "history",
@@ -46,6 +47,12 @@ export default new Router ({
             path: '/Alert',
             name: 'Alert',
             component: Alert,
+        },
+
+        {
+            path: '/Profile',
+            name: 'Profile',
+            component: Profile,
         },
 
         

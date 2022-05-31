@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@mdi/font": "^6.6.96",
+        "bcryptjs": "^2.4.3",
         "vue-router": "^3.5.3",
         "vue-svg-gauge": "^1.2.1",
         "vue-toasted": "^1.1.28",
