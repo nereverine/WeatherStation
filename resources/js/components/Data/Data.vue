@@ -37,8 +37,8 @@
   :value=this.today.luminosity
   :separator-step="100"
   :min="0"
-  :max="1000"
-  :gauge-color="[{ offset: 0, color: 'yellow'}, { offset: 50, color: 'black'}]"
+  :max="1024"
+  :gauge-color="[{ offset: 0, color: 'black'}, { offset: 50, color: 'yellow'}]"
   :scale-interval="0.1"
 >
 <div class="inner-text--lum-above inner-text-lum-above--4">
@@ -227,26 +227,23 @@ export default {
             this.hasHumAlert = true
             break
 
-          case 'luminosity>500':
+          case 'luminosity<300':
             this.hasLumAlert = true
             break  
         }
       });
       
-
         if(this.hasTempAlert==true && this.today.temperature > 22){
           this.sendTempNotif()
         }
         if(this.hasHumAlert==true && this.today.humidity > 90){
           this.sendHumNotif()
         }
-        if(this.hasLumAlert==true && this.today.luminosity > 500){
+        if(this.hasLumAlert==true && this.today.luminosity < 300){
           this.sendLumNotif()
         }
 
     });
-
-
 
 
   },
@@ -278,6 +275,13 @@ export default {
       this.selectedDateData = r.data
       if(!Object.keys(this.selectedDateData).length ==0){
       this.dialog = true
+    }
+    else{
+      this.$toasted.show("No data found that day", {
+          color: "red",
+          duration: 2000,
+          position: "top-center",
+        })
     }
     });
     

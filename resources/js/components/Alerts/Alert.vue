@@ -87,7 +87,7 @@ export default {
       alerts: [],
       isAlertsEmpty: true,
       dialog: false,
-      items: ['temperature>22', 'humidity>90', 'luminosity>500'],
+      items: ['temperature>22', 'humidity>90', 'luminosity<300'],
       selectedAddAlert: '',
       dialogRemove: false,
 

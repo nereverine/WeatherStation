@@ -42,7 +42,7 @@
                     >
                         <v-avatar
                         >
-                            <img :src="'storage/images/'+ user.name + '.png'"/>
+                            <v-icon>mdi-account</v-icon>
                         </v-avatar>
                     </v-btn>
                 </template>
@@ -51,7 +51,7 @@
                         <div class="mx-auto text-center">
                             <v-avatar
                             >
-                                <img :src="'storage/images/'+ user.name + '.png'"/>
+                                <v-icon>mdi-account</v-icon>
                             </v-avatar>
                             <h4>{{ user.name }}</h4>
                             <p class="caption mt-1">

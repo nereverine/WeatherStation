@@ -19,7 +19,7 @@
         <v-divider class="mx-4"></v-divider>
         <v-row>
           <v-col align="left"
-            ><v-card-title class="display-1"> Password: </v-card-title>
+            ><v-card-title class="display-1"> New Password: </v-card-title>
           </v-col>
           <v-col align="right">
             <v-text-field
