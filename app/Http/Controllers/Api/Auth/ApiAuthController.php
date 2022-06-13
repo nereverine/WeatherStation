@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 //use App\Http\Resources\User as UserResource;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 
@@ -30,6 +31,26 @@ class ApiAuthController extends Controller
     {
         Auth::guard('web')->logout();
         return response()->json(['msg' => 'User session closed'], 200);
+    }
+
+
+
+    public function register (Request $request)
+    {
+        $validated = $request->validate([
+            'name'=> 'required',
+            'email'=> 'required|email',
+            'password'=> 'required',
+        ]);
+
+        $user = User::create([
+            'name'=> request('name'),
+            'email'=> request('email'),
+            'password'=> Hash::make(request('password')),
+            'type'=> 'SO',
+        ]);
+
+        return response()->json(['success' =>'User Created']);
     }
 
 }

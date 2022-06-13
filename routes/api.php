@@ -35,6 +35,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('login', [ApiAuthController::class, 'login']);
 Route::post('logout', [ApiAuthController::class, 'logout']);
+Route::post('register', [ApiAuthController::class, 'register']);
 Route::post('updateUserWithPass/{user}', [UserController::class, 'updateUserWithPass']);
 Route::post('updateUser/{user}', [UserController::class, 'updateUser']);
 

@@ -55,6 +55,12 @@ export default new Router ({
             component: Profile,
         },
 
+        {
+            path: '/Register',
+            name: 'Register',
+            component: Register,
+        },
+
         
 
     ]
